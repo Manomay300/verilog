@@ -1,0 +1,16 @@
+
+
+module nbitcomparator #(
+    parameter N = 4
+)(
+    input  [N-1:0] A, B,
+    output G,
+    output E,
+    output L
+);
+
+    assign G = (A > B);   // A greater than B
+    assign E = (A == B);  // A equal to B
+    assign L = (A < B);   // A less than B
+
+endmodule
