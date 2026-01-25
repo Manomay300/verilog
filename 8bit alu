@@ -1,0 +1,30 @@
+module alu_8bit (
+    input  [7:0] A, B,
+    input  [3:0] S,
+    output reg [7:0] Y,
+    output reg Cout,
+    output reg Z
+);
+
+always @(*) begin
+    Cout = 1'b0;
+    Y    = 8'b0000_0000;
+
+    case (S)
+        4'b0000: {Cout, Y} = A + B;   // ADD
+        4'b0001: {Cout, Y} = A - B;   // SUB
+        4'b0010: Y = A + 1;           // INC
+        4'b0011: Y = A - 1;           // DEC
+        4'b0100: Y = A & B;           // AND
+        4'b0101: Y = A | B;           // OR
+        4'b0110: Y = A ^ B;           // XOR
+        4'b0111: Y = ~A;              // NOT
+        4'b1000: Y = A << 1;          // Left Shift
+        4'b1001: Y = A >> 1;          // Right Shift
+        default: Y = 8'b0000_0000;
+    endcase
+
+    Z = (Y == 8'b0000_0000);           // Zero flag
+end
+
+endmodule
